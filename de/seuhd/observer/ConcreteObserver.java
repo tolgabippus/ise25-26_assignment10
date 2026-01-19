@@ -1,18 +1,25 @@
 package de.seuhd.observer;
 
 public class ConcreteObserver implements Observer {
-    // TODO: Add fields and static variables.
+    private static int observerCounter = 0;
+    private int observerId;
+    private Subject subject;
 
     public ConcreteObserver(Subject subject) {
-        // TODO: Implement constructor.
+        this.subject = subject;
+        this.observerId = ++observerCounter;
+        subject.attach(this);
     }
 
     @Override
     public void update(Subject subject) {
-        // TODO: Implement update method.
+        if (subject instanceof ConcreteSubject) {
+            ConcreteSubject concreteSubject = (ConcreteSubject) subject;
+            System.out.println("Observer " + observerId + " received update from subject : New value is " + concreteSubject.getValue());
+        }
     }
 
     public void detach() {
-        // TODO: Implement detach method.
+        subject.detach(this);
     }
 }
